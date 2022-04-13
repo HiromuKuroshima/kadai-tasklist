@@ -8,7 +8,13 @@ use App\Task;    // 追加
 
 class TasksController extends Controller
 {
+    public function __construct()
+    {
+       $this->middleware('auth');
+    }
+    
     /**
+     * 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -23,6 +29,7 @@ class TasksController extends Controller
             'tasks' => $tasks,
     ]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -52,11 +59,12 @@ class TasksController extends Controller
          // バリデーション
         $request->validate([
             'status' => 'required|max:10',   // 追加
-            'content' => 'required|max:255',
+            'content' => 'required|max:255'
         ]);
         // メッセージを作成
         $task = new Task;
         $task->status = $request->status;
+        $task->user_id = $request->user_id;
         $task->content = $request->content;
         $task->save();
 
