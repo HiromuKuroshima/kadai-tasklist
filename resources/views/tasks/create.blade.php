@@ -27,8 +27,6 @@
                 </div>
 
                 {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
-               {{ Form::hidden('user_id','ユーザーID')}}
-            
 
             {!! Form::close() !!}
         </div>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Task;    // 追加
 
+use Illuminate\Support\Facades\Auth;
+
 class TasksController extends Controller
 {
     public function __construct()
@@ -64,9 +66,10 @@ class TasksController extends Controller
         // メッセージを作成
         $task = new Task;
         $task->status = $request->status;
-        $task->user_id = $request->user_id;
         $task->content = $request->content;
+        $task->user_id = Auth::id();
         $task->save();
+      
 
         // トップページへリダイレクトさせる
         return redirect('/');
