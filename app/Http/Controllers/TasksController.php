@@ -24,9 +24,9 @@ class TasksController extends Controller
     public function index()
     {
          // タスク一覧を取得
-        $tasks = Task::all();
+        $tasks = Task::where('user_id',Auth::id())->get();
 
-        // メッセージ一覧ビューでそれを表示
+        // タスク一覧ビューでそれを表示
         return view('tasks.index', [
             'tasks' => $tasks,
     ]);
@@ -159,7 +159,7 @@ class TasksController extends Controller
 
         // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
         if (\Auth::id() === $task->user_id) {
-            $task->delete();
+            $tasklist->delete();
         }
 
         // トップページへリダイレクトさせる
